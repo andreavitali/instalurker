@@ -1,0 +1,58 @@
+<div class="header">
+    <div class="row">
+        <div class="columns">
+            <div class="header-wrapper">
+                <h3>Followed users</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="columns">
+
+        <!-- Filters from medium-up -->
+        <div class="panel radius margin-from-header show-for-medium-up">
+            <dl class="sub-nav followed">
+                <dt class="bold separated">Totals: {{followedListCtrl.users.length}}</dt>
+                <dt class="show-for-large-up">Order by:</dt>
+                <dd class="show-for-large-up" ng-class="{'active':followedListCtrl.orderByField === 'username'}">
+                    <a href="#" ng-click="followedListCtrl.orderByField = 'username'; reverse=false">Username</a></dd>
+                <dd class="show-for-large-up" ng-class="{'active':followedListCtrl.orderByField === 'fromDate' && reverse}">
+                    <a href="#" ng-click="followedListCtrl.orderByField = 'fromDate'; reverse=true">Newest</a></dd>
+                <dd class="separated show-for-large-up" ng-class="{'active':followedListCtrl.orderByField === 'fromDate' && !reverse}">
+                    <a href="#" ng-click="followedListCtrl.orderByField = 'fromDate'; reverse=false">Oldest</a></dd>
+                <dt>Filter:</dt>
+                <dd><input type="text" ng-model="search.$"/></dd>
+            </dl>
+        </div>
+
+        <!-- Filters for small-only -->
+        <form class="margin-from-header show-for-small-only">
+            <div class="row">
+                <div class="small-2 columns">
+                    <label for="small-filter" class="right inline">Filter:</label>
+                </div>
+                <div class="small-10 columns">
+                    <input type="text" id="small-filter" ng-model="search.$"/>
+                </div>
+            </div>
+        </form>
+
+        <!-- List -->
+        <ul class="large-block-grid-2 small-block-grid-1">
+            <li class="followed-user-wrapper" ng-repeat="user in followedListCtrl.users | filter:search | orderBy:followedListCtrl.orderByField:reverse track by user.id">
+                <div class="followed-user">
+                    <img ng-src="{{::user.picture}}">
+                    <div class="info">
+                        <a class="bold" href="#" ui-sref="user({username: user.username})">{{::user.username}}</a>
+                        <span class="fullname">({{::user.full_name}})</span>
+                        <div class="from">from: {{::user.fromDate | date:'dd/MM/yyyy'}}</div>
+                    </div>
+                    <follow user="user" on-unfollow="followedListCtrl.removeUser(user)" small></follow>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>

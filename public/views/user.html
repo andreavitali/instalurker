@@ -1,0 +1,34 @@
+<div class="header">
+    <div class="row">
+        <div class="columns">
+            <!-- User view header -->
+            <div class="header-wrapper">
+                <div class="profile-picture">
+                    <img class="round" ng-src="{{::userCtrl.user.profile_picture}}">
+                </div>
+                <div class="info">
+                    <h4>{{::userCtrl.user.username}}</h4>
+                    <b>{{::userCtrl.user.full_name}}</b> <span class="bio subheader">{{::userCtrl.user.bio}}</span>
+                </div>
+                <follow ng-if="userCtrl.isAuthenticated() && !userCtrl.isPrivate" ng-cloak user="userCtrl.user"></follow>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="columns">
+        <div ng-cloak ng-if="userCtrl.isPrivate" class="private">
+            <h4><i class="fa fa-lock"></i> Private profile</h4>
+        </div>
+        <ul class="small-block-grid-2 medium-block-grid-4 large-block-grid-5"
+            infinite-scroll="userCtrl.loadMore()" infinite-scroll-disabled = "userCtrl.loading">
+            <li class="thumb-wrapper" ng-repeat="media in userCtrl.data track by media.id">
+                <thumbnail media="media" user-feed></thumbnail>
+            </li>
+        </ul>
+    </div>
+    <div class="columns small-12 text-center" ng-if="userCtrl.loading">
+        <i class="fa fa-spinner fa-spin fa-2x alternate"></i>
+    </div>
+</div>

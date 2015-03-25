@@ -1,0 +1,37 @@
+<div class="row media-viewer">
+    <div class="columns small-12 large-8">
+        <video id="videoPlayer" ng-if="media.type === 'video'"
+               poster="{{media.images.standard_resolution.url}}"
+               width="100%" height="auto" preload controls onclick="this.play()">
+            <source src="{{media.videos.standard_resolution.url}}" />
+            Your browser does not support HTML5 videos.
+        </video>
+        <img ng-if="media.type === 'image'" src="http://placehold.it/640x640" />
+    </div>
+    <div class="info radius columns small-12 large-4">
+        <div class="upper-info">
+            <a class="close-reveal-modal show-for-small-only" ng-click="cancel()">&#215;</a>
+            <h5 class="bold"><a ui-sref="user({username:media.user.username})">{{media.user.username}}</a></h5>
+            <h6><a class="text-light" ng-href="{{media.link}}">{{media.created_time*1000 | date:'dd/MM/yyyy HH:mm'}}</a></h6>
+            <div class="caption" ng-bind="media.caption.text" linkify="instagram"></div>
+            <hr/>
+            <div ng-cloak ng-if="media.likes.count > 0" class="likes text-light">
+                <div>Likes to
+                    <div class="like-user" ng-repeat="likeUser in media.likes.data">
+                        <a class="bold" ui-sref="user({username:likeUser.username})">@{{likeUser.username}} </a>
+                    </div>
+                    <span ng-if="media.likes.count > media.likes.data.length">and others
+                        {{media.likes.count - media.likes.data.length}} people</span>
+                </div>
+                <hr/>
+            </div>
+        </div>
+        <!--<a href="{{media.link}}">Link</a>-->
+        <ul class="comments">
+            <li ng-repeat="comment in media.comments.data">
+                <a class="bold" ui-sref="user({username:comment.from.username})">{{comment.from.username}}</a>
+                <div ng-bind="comment.text" linkify="instagram"></div>
+            </li>
+        </ul>
+    </div>
+</div>

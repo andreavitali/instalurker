@@ -1,0 +1,19 @@
+<div class="header">
+    <div class="row">
+        <div class="columns">
+            <div class="header-wrapper">
+                <h3>Popular media</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="columns">
+        <ul class="small-block-grid-3 medium-block-grid-4 large-block-grid-5">
+            <li class="thumb-wrapper" ng-repeat="media in homeCtrl.popularData track by media.id">
+                <thumbnail media="media"></thumbnail>
+            </li>
+        </ul>
+    </div>
+</div>

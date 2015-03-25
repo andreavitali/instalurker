@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>InstaLurker</title>
+    <link rel="icon" type="image/ico" href="images/favicon.png" />
+    <link href="stylesheets/app.css" rel="stylesheet" />
+</head>
+
+<body ng-app="InstaLurker" ng-strict-di>
+
+    <!-- Navbar -->
+    <div class="contain-to-grid fixed" ng-controller="NavBarCtrl as navbar">
+        <div class="top-bar" role="navigation">
+            <ul class="title-area show-for-large-up">
+                <li class="name">
+                    <h1><a href="/">InstaLurker</a></h1>
+                </li>
+            </ul>
+            <section class="top-bar-section">
+                <!-- Mobile -->
+                <ul class="left show-for-small-down">
+                    <li ng-cloak><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+                    <li ui-sref-active="active" ng-cloak ng-if="navbar.isAuthenticated()">
+                        <a ui-sref="myfeed" title="My Feed"><i class="fa fa-desktop fa-lg"></i></a>
+                    </li>
+                    <li ui-sref-active="active" ng-cloak ng-if="navbar.isAuthenticated()">
+                        <a ui-sref="followed" title="Followed users"><i class="fa fa-users fa-lg"></i></a>
+                    </li>
+                    <li ng-class="{'active':$root.searchActive}">
+                        <a href="#" title="Search users" ng-click="$root.searchActive = !$root.searchActive; $root.fixView = $root.searchActive"><i class="fa fa-search fa-lg"></i></a>
+                    </li>
+                </ul>
+                <!-- Tablet/Desktop -->
+                <ul class="left show-for-medium-up">
+                    <li class="show-for-medium-only" ng-cloak><a href="/"><i class="fa fa-home fa-lg"></i></a></li>
+                    <li ui-sref-active="active" ng-cloak ng-if="navbar.isAuthenticated()"><a ui-sref="myfeed">My Feed</a></li>
+                    <li ui-sref-active="active" ng-cloak ng-if="navbar.isAuthenticated()"><a ui-sref="followed">Followed</a></li>
+                    <li class="has-form">
+                        <div class="row collapse">
+                            <div class="small-1 columns">
+                                <span class="prefix">
+                                    <i class="fa fa-search search-icon left-addon" ng-hide="searching"></i>
+                                    <i class="fa fa-spinner fa-spin loading-icon" ng-show="searching"></i>
+                                </span>
+                            </div>
+                            <div class="small-11 columns">
+                                <input class="usersSearch" type="text" placeholder="Search users" class="radius" ng-model="queryString"
+                                       typeahead="user.username for user in navbar.searchUsers($viewValue)" typeahead-min-length="2"
+                                       typeaheadWaitMS="500" typeahead-append-to-body="true" typeahead-loading="searching" />
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="right collapse">
+                    <li class="divider show-for-medium-up"></li>
+                    <li class="has-form" ng-cloak ng-if="!navbar.isAuthenticated()">
+                        <a class="button" id="instagram-sign-in" href="#" ng-click="navbar.instagramLogin()"><i class="fa fa-instagram fa-lg"></i> Login</a>
+                    </li>
+                    <li class="has-form" ng-cloak ng-if="navbar.isAuthenticated() && currentUser.username">
+                        <a href="#" class="button" data-dropdown="userDropDown">
+                            <span class="avatar" style="background-image: url('{{::currentUser.picture}}')"></span>
+                            {{::currentUser.username}} <i class="fa fa-chevron-down"></i>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+
+        <!-- User operations dropdown -->
+        <ul id="userDropDown" class="f-dropdown" data-dropdown-content>
+            <li><a href="http://instagram.com/{{::currentUser.username}}">Profile</a></li>
+            <li><a href="#" ng-click="navbar.logout()">Logout</a></li>
+        </ul>
+
+        <!-- Search input mobile-only -->
+        <div id="searchOverlay" class="show-for-small-only" ng-cloak ng-show="$root.searchActive">
+            <div class="input-wrapper row collapse">
+                <div class="small-1 columns">
+                <span class="prefix">
+                    <i class="fa fa-search search-icon left-addon" ng-hide="searching"></i>
+                    <i class="fa fa-spinner fa-spin loading-icon" ng-show="searching"></i>
+                </span>
+                </div>
+                <div class="small-11 columns">
+                    <input class="usersSearch" type="text" placeholder="Search users" class="radius small-12" ng-model="queryString" show-focus="$root.searchActive"
+                           typeahead="user.username for user in navbar.searchUsers($viewValue)" typeahead-min-length="2"
+                           typeaheadWaitMS="500" typeahead-loading="searching" typeahead-append-to-element="#searchOverlay .input-wrapper" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View container -->
+    <div ng-class="{'no-scroll':$root.fixView}" ui-view></div>
+
+    <!-- Scripts -->
+    <script src="vendor/jquery.min.js"></script>
+    <script src="vendor/foundation.min.js"></script>
+    <script src="vendor/angular.js"></script>
+    <script src="vendor/angular-ui-router.min.js"></script>
+    <script src="vendor/satellizer.min.js"></script>
+    <script src="vendor/ng-infinite-scroll.min.js"></script>
+    <script src="vendor/ngprogress-lite.min.js"></script>
+    <!--<script src="vendor.min.js"></script>-->
+
+    <script src="js/envConstant.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/directives/thumbnail/thumbnail.js"></script>
+    <script src="js/directives/typeahead/typeahead.js"></script>
+    <script src="js/directives/modal/modal.js"></script>
+    <script src="js/directives/follow/follow.js"></script>
+    <script src="js/directives/showFocus.js"></script>
+    <script src="js/directives/angular-linkify.js"></script>
+    <!--<script src="instalurker.min.js"></script>-->
+
+    <script type="text/javascript">
+        $(document).foundation();
+    </script>
+</body>
+</html>

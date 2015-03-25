@@ -1,0 +1,8 @@
+<div class="follow">
+    <a href="#" class="button" ng-class="{'alert':user.followed, 'small':isSmall}" ng-show="!requesting"
+       ng-click="$event.preventDefault(); $event.stopPropagation(); makeRequest();">
+        <div ng-show="!user.followed" title="Follow" ng-cloak><i class="fa fa-user-plus"></i><span ng-if="!isSmall"> Follow</span></div>
+        <div ng-show="user.followed" title="Stop follow" ng-cloak><i class="fa fa-user-times"></i><span ng-if="!isSmall"> Unfollow</span></div>
+    </a>
+    <i class="fa fa-spinner fa-spin alternate" ng-show="requesting"></i>
+</div>

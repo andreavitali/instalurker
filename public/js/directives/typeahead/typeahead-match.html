@@ -1,0 +1,6 @@
+<a class="found-user clearfix" ui-sref="user({username: match.model.username})">
+    <img ng-src="{{::match.model.profile_picture}}">
+    <follow ng-cloak ng-if="$root.currentUser" user="match.model" small></follow>
+    <span class="username bold">{{::match.model.username}}</span>
+    <span class="fullname">{{::match.model.full_name}}</span>
+</a>

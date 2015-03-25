@@ -1,0 +1,464 @@
+
+// Generic
+// ==========================================================================
+
+$search-users-width: 300px;
+
+span.prefix, span.postfix, .text-light {
+  color: lighten($body-font-color, 20%) !important;
+}
+
+.fa.alternate {
+  color: $primary-color;
+}
+
+.follow a {
+  margin: 0;
+}
+
+.margin-from-header {
+  margin-top: 10px;
+}
+
+.bold {
+  font-weight: $font-weight-bold;
+}
+
+.private {
+  width: 200px;
+  margin: 10px auto;
+}
+
+.no-scroll {
+  @media #{$small-only} {
+    position: fixed;
+    overflow: hidden;
+  }
+}
+
+// ngProgressLite
+// ==========================================================================
+
+.ngProgressLite {
+  pointer-events: none;
+
+  .ngProgressLiteBarShadow {
+    display: block;
+    position: absolute;
+    right: 0px;
+    width: 100px;
+    height: 100%;
+    box-shadow: 0 0 10px $body-bg, 0 0 5px $body-bg;
+    opacity: 1;
+    -webkit-transform: rotate(3deg) translate(0px, -4px);
+    -ms-transform: rotate(3deg) translate(0px, -4px);
+    transform: rotate(3deg) translate(0px, -4px);
+  }
+}
+
+.ngProgressLiteBar {
+  background: $body-bg;
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  height: 2px;
+}
+
+// NavBar
+// ==========================================================================
+
+// Instagram login button
+a.button#instagram-sign-in {
+  border: solid 1px darken($primary-color, 20%);
+  background-color: darken($primary-color, 14%);
+  @include radius(4px);
+  font-weight: bold;
+  @include inset-shadow(true);
+}
+
+// Logged account avatar
+.avatar {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  background-size: 24px 24px;
+  vertical-align: middle;
+  margin-top: -4px;
+  @include radius(12px);
+}
+
+// Fix for prefix in topbar
+.top-bar-section {
+  ul li {
+    .prefix {
+      line-height: $topbar-input-height;
+    }
+    span.prefix {
+      height: $topbar-input-height;
+      top: (($topbar-height - $topbar-input-height) / 2);
+    }
+  }
+}
+
+// Search users
+// ==========================================================================
+
+// Input
+input.usersSearch {
+  @media #{$medium-up} {
+    width: $search-users-width;
+  }
+}
+
+#searchOverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: $topbar-height;
+  left: 0;
+  background-color: $panel-bg;
+  z-index: 75;
+
+  .input-wrapper {
+    padding: $panel-padding/2;
+    z-index: 79;
+
+    input {
+      margin: 0;
+    }
+  }
+}
+
+// Typeahead popup
+.typeahead-popup {
+
+  overflow-x: hidden;
+
+  @media #{$small-only} {
+    z-index: 77;
+    left:0 !important;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+  }
+
+  @media #{$medium-up} {
+    z-index: 109;
+    width: $search-users-width;
+    max-width: $search-users-width;
+    overflow-y: scroll;
+    max-height: 440px;
+    margin-top:0;
+  }
+
+  li {
+
+    border-bottom: 1px solid $gainsboro;
+
+    &.active {
+      background-color: $f-dropdown-list-hover-bg;
+    }
+
+    .found-user {
+
+      font-size: 0.85em;
+      overflow-x: hidden;
+      position: relative;
+
+      img {
+        width: 38px;
+        height: 38px;
+        max-width: 100%;
+        border-radius: 19px;
+        margin-right: rem-calc(10);
+        float: left;
+      }
+
+      .username {
+        display: block;
+      }
+
+      .fullname {
+        display: block;
+        overflow-x: hidden;
+      }
+
+      .follow {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        a {
+          color: $button-font-color !important;
+        }
+      }
+    }
+  }
+}
+
+// Header
+// ==========================================================================
+
+.header {
+  background-color: lighten($body-bg, 5%);
+  border-bottom: 1px solid $gainsboro;
+  box-shadow: 1px 0 0 rgba($black,.05),-1px 0 0 rgba($black,.05),0 1px 2px rgba($black,.05);
+
+  @media #{$small-only} {
+    margin-top: $topbar-height;
+  }
+
+  .header-wrapper {
+
+    position: relative;
+    margin: 5px;
+
+    .profile-picture img {
+
+      @include radius(4px);
+      @media #{$small-up} {
+        width: 50px;
+        height: 50px;
+      }
+      @media #{$medium-up} {
+        width: 90px;
+        height: 90px;
+      }
+    }
+
+    .info {
+      position: absolute;
+      bottom: 0;
+      font-size: 0.8em;
+      @media #{$small-up} {
+        padding-left: 70px;
+        padding-right: 90px;
+      }
+      @media #{$medium-up} {
+        padding-left: 120px;
+        padding-right: 130px;
+      }
+
+      span.bio {
+        @media #{$small-up} {
+          display:none;
+        }
+        @media #{$medium-up} {
+          display: inline !important;
+        }
+      }
+    }
+
+    .follow {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+
+      .button {
+        margin: 0;
+        @media #{$small-only} {
+          @include button-size($padding:$button-sml);
+        }
+      }
+    }
+  }
+}
+
+// Custom thumbnails
+// ==========================================================================
+
+.thumb {
+
+  color: lighten($body-font-color, 20%);
+
+  .thumb-text {
+    font-size: rem-calc(12);
+    font-weight: bold;
+  }
+
+  > .thumb-header {
+    height: rem-calc(12);
+    margin-left: 5px;
+    position: relative;
+    top: rem-calc(12);
+    z-index: -1;
+  }
+
+  > .thumb-content {
+
+    position: relative;
+
+    img {
+      border: 5px $white solid;
+      box-shadow: 0 0 2px 1px rgba($black,.2);
+    }
+
+    &.video:before {
+      @include fa-icon();
+      content: $fa-var-video-camera;
+      color: $white;
+      text-shadow: 0 0 5px rgba($black,.8);
+      position:absolute;
+      font-size: rem-calc(20);
+      right:rem-calc(12);
+      top:rem-calc(26);
+    }
+
+    .thumb-text {
+      opacity: 0;
+      @include single-transition(all, 0.3s, linear);
+    }
+
+    .likes {
+      margin-right: 20px;
+    }
+
+    &:hover {
+      .thumb-text {
+        opacity: 1;
+      }
+      img {
+        box-shadow: none;
+      }
+      ~ .thumb-header {
+        opacity: 0;
+      }
+      box-shadow: 0 0 4px 1px rgba($primary-color,0.5);
+      background-color: $white;
+    }
+  }
+}
+
+// Followed users list
+// ==========================================================================
+
+dl.sub-nav.followed {
+  .separated {
+    padding-right: rem-calc(16);
+    border-right: 1px inset #999999;
+  }
+  dd input {
+    height: #{$list-line-height}rem;
+    margin: 0;
+  }
+}
+
+.followed-user-wrapper {
+
+  padding: rem-calc(5) !important;
+
+  .followed-user {
+    position: relative;
+    background-color: rgba($white, 0.9);
+    padding: rem-calc(5) !important;
+    box-shadow: 0 0 2px 1px rgba($black,.2);
+
+    img {
+      width: 50px;
+      height: 50px;
+      max-width: 100%;
+      border-radius: 25px;
+      margin-right: rem-calc(5);
+    }
+
+    .info {
+
+      display: inline-block;
+      vertical-align: middle;
+
+      .fullname {
+        overflow-x: hidden;
+        color: lighten($body-font-color, 20%);
+      }
+
+      .from {
+        font-size: 0.9rem;
+        color: lighten($body-font-color, 20%);
+      }
+    }
+
+    .follow {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      @include single-transition(opacity, 0.3s, ease-out);
+    }
+
+    &:hover {
+      .follow {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// Media modal
+// ==========================================================================
+
+.small-modal {
+  @media #{$small-only} {
+    width: auto;
+    padding: $reveal-modal-padding 0 0 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+.media-viewer {
+
+  .info {
+
+    a.close-reveal-modal {
+      top: 0;
+    }
+
+    .upper-info {
+      @media #{$medium-up} {
+        max-height: 250px;
+      }
+
+      .caption {
+        font-size: 0.85rem;
+        @media #{$medium-up} {
+          max-height: 110px;
+          overflow-y: auto;
+        }
+      }
+
+      hr {
+        margin: rem-calc(4 0);
+        box-shadow: 0 1px 0 rgba($black, .2);
+      }
+
+      .likes {
+        font-size: 0.85rem;
+
+        .like-user {
+          display: inline;
+        }
+      }
+    }
+
+    ul.comments {
+      list-style: none;
+      margin-left: 0;
+      outline: none;
+      overflow-y: auto;
+      font-size: 0.85rem;
+      @media #{$medium-up} {
+        max-height: 388px;
+      }
+
+      & > li {
+        margin: rem-calc(5 0);
+      }
+    }
+  }
+}
