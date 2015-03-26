@@ -57,25 +57,37 @@ module.exports = function(grunt) {
             }
         },
 
-        // SASS
-        sass: {
+        // CSS minification
+        cssmin: {
             prod: {
                 files: {
-                    'public/stylesheets/app.css': 'public/stylesheets/app.scss'
+                    'public/stylesheets/app.min.css' : ['public/stylesheets/app.css']
+                }
+            }
+        },
+
+        // Change index.html to use minified files
+        targethtml: {
+            prod: {
+                files: {
+                    'public/index.html': 'public/index.html'
                 }
             }
         }
+
+        // SASS compilation made by IDE
     });
 
     // Load plugins
     grunt.loadNpmTasks('grunt-ng-constant');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-targethtml');
 
     // Dev task
-    grunt.registerTask('dev', ['ngconstant:dev']); // no SASS compile because I used IDE file watchers
+    grunt.registerTask('dev', ['ngconstant:dev']); // no
 
     // Default (prod) task
-    grunt.registerTask('default', ['ngconstant:prod','concat:vendor','concat:app','uglify:app','sass']);
+    grunt.registerTask('default', ['ngconstant:prod','concat:vendor','concat:app','uglify:app','cssmin','targethtml']);
 }

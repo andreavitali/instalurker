@@ -7,7 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>InstaLurker</title>
     <link rel="icon" type="image/ico" href="images/favicon.png" />
+<!--(if target dev)><!-->
     <link href="stylesheets/app.css" rel="stylesheet" />
+<!--<!(endif)-->
+<!--(if target prod)>
+    <link rel="stylesheet" href="app.min.css">
+<!(endif)-->
 </head>
 
 <body ng-app="InstaLurker" ng-strict-di>
@@ -98,6 +103,13 @@
     <div ng-class="{'no-scroll':$root.fixView}" ui-view></div>
 
     <!-- Scripts -->
+
+<!--(if target prod)>
+    <script src="vendor.min.js"></script>
+    <script src="instalurker.min.js"></script>
+<!--<!(endif)-->
+
+<!--(if target dev)><!-->
     <script src="vendor/jquery.min.js"></script>
     <script src="vendor/foundation.min.js"></script>
     <script src="vendor/angular.min.js"></script>
@@ -105,7 +117,6 @@
     <script src="vendor/satellizer.min.js"></script>
     <script src="vendor/ng-infinite-scroll.min.js"></script>
     <script src="vendor/ngprogress-lite.min.js"></script>
-    <!--<script src="vendor.min.js"></script>-->
 
     <script src="js/envConstant.js"></script>
     <script src="js/app.js"></script>
@@ -117,7 +128,7 @@
     <script src="js/directives/follow/follow.js"></script>
     <script src="js/directives/showFocus.js"></script>
     <script src="js/directives/angular-linkify.js"></script>
-    <!--<script src="instalurker.min.js"></script>-->
+<!--<!(endif)-->
 
     <script type="text/javascript">
         $(document).foundation();
