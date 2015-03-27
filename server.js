@@ -22,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var auth = require('./routes/auth');
 var followed = require('./routes/followed');
 var instagram = require('./routes/instagram');
+var myFeed = require('./routes/myfeed');
 
 //-----------------------------------------
 // API
@@ -36,8 +37,8 @@ app.post('/api/followed', auth.isAuthenticated, followed.follow);
 app.delete('/api/followed/:id', auth.isAuthenticated, followed.unFollow);
 
 // Instagram related api
-app.get('/api/popular', auth.optionalAuthentication, instagram.popular);
-app.get('/api/feed', auth.isAuthenticated, instagram.feed);
+app.get('/api/popular', instagram.popular);
+app.get('/api/feed/:max_timestamp', auth.isAuthenticated, myFeed.feed);
 app.get('/api/search/:q', auth.optionalAuthentication, instagram.search);
 app.get('/api/user/:username', auth.optionalAuthentication, instagram.idFromUsernameMiddleware, instagram.user);
 app.get('/api/user/:id/:next_max_id', instagram.userMore);

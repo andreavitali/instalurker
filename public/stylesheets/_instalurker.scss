@@ -36,6 +36,21 @@ span.prefix, span.postfix, .text-light {
   }
 }
 
+// Thumb grid [small]
+// ==========================================================================
+
+@media #{$small-only} {
+  [class*='small-block-grid-'] > li.thumb-wrapper {
+    .thumb-content:hover {
+      box-shadow: none;
+    }
+    img {
+      border: none;
+      box-shadow: none;
+    }
+  }
+}
+
 // ngProgressLite
 // ==========================================================================
 
@@ -164,9 +179,9 @@ input.usersSearch {
 
     .found-user {
 
+      position: relative;
       font-size: 0.85em;
       overflow-x: hidden;
-      position: relative;
 
       img {
         width: 38px;
@@ -297,15 +312,15 @@ input.usersSearch {
       box-shadow: 0 0 2px 1px rgba($black,.2);
     }
 
-    &.video:before {
+    &.video a:before {
       @include fa-icon();
       content: $fa-var-video-camera;
       color: $white;
       text-shadow: 0 0 5px rgba($black,.8);
       position:absolute;
       font-size: rem-calc(20);
-      right:rem-calc(12);
-      top:rem-calc(26);
+      right:0;
+      margin:rem-calc(20/2);
     }
 
     .thumb-text {
@@ -415,6 +430,11 @@ dl.sub-nav.followed {
 
   .info {
 
+    @media #{$medium-up} {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
     a.close-reveal-modal {
       top: 0;
     }
@@ -457,7 +477,19 @@ dl.sub-nav.followed {
       }
 
       & > li {
+        position: relative;
         margin: rem-calc(5 0);
+
+        img {
+          width: 38px;
+          height: 38px;
+          max-width: 100%;
+          float:left;
+        }
+
+        .text {
+          margin-left: 43px;
+        }
       }
     }
   }

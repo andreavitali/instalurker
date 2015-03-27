@@ -17,8 +17,8 @@ instaLurker.factory('InstagramAPI', ['$http', function($http) {
     instagramAPI.userMore = function(id, next_max_id) {
         return $http.get('/api/user/'+id+'/'+next_max_id);
     };
-    instagramAPI.media = function(id) {
-        return $http.get('/api/media/'+id);
+    instagramAPI.myFeed = function(max_timestamp) {
+        return $http.get('/api/feed/'+max_timestamp);
     };
     return instagramAPI;
 }]);

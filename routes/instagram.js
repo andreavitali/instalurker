@@ -22,7 +22,7 @@ exports.popular = function (req, res, next) {
 
 // Search users
 exports.search = function (req, res, next) {
-    var userId = req.user.id || undefined;
+    var userId = req.user ? req.user.id : undefined;
     instagram.users.search({
         q: req.params.q,
         complete: function (data) {
@@ -51,7 +51,7 @@ exports.search = function (req, res, next) {
 // User feed
 exports.user = function (req, res, next) {
     var instagramId = req.id;
-    var userId = req.user.id || undefined;
+    var userId = req.user ? req.user.id : undefined;
     var result = {};
 
     async.parallel([
@@ -129,12 +129,7 @@ exports.idFromUsernameMiddleware = function (req, res, next) {
     });
 };
 
-// Custom feed
-// TODO
-exports.feed = function (req, res, next) {
-    return res.status(200);
-};
-
+// Get media by ID (NOT USED)
 exports.getMedia = function (req, res, next) {
     instagram.media.info({
         media_id: req.params.id,
@@ -146,3 +141,4 @@ exports.getMedia = function (req, res, next) {
         }
     })
 };
+

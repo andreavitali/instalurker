@@ -1,8 +1,5 @@
-angular.module('linkify', []);
-
-angular.module('linkify')
-    .filter('linkify', function (ENV) {
-        'use strict';
+angular.module('linkify', [])
+    .filter('linkify',['ENV', function (ENV) {
 
         function linkify (_str, type) {
             if (!_str) {
@@ -42,14 +39,11 @@ angular.module('linkify')
             return _text;
         }
 
-        //
         return function (text, type) {
             return linkify(text, type);
         };
-    })
+    }])
     .factory('linkify', ['$filter', function ($filter) {
-        'use strict';
-
         function _linkifyAsType (type) {
             return function (str) {(type, str);
                 return $filter('linkify')(str, type);
@@ -64,8 +58,6 @@ angular.module('linkify')
         };
     }])
     .directive('linkify', ['$filter', '$timeout', 'linkify', function ($filter, $timeout, linkify) {
-        'use strict';
-
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {

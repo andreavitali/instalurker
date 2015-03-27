@@ -5,7 +5,7 @@
 var instaLurker = angular.module('InstaLurker', ['ui.router','satellizer','infinite-scroll','ngProgressLite','linkify','envConstant']);
 
 // Startup
-instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite', function($rootScope, $window, $auth, ngProgressLite) {
+instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite', function($rootScope, $window, $auth, ngProgressLite, $modalStack) {
     // If authenticated load user on start and redirect to 'MyFeed' page
     if ($auth.isAuthenticated()) {
         $rootScope.currentUser = JSON.parse($window.localStorage.currentUser);
@@ -20,6 +20,8 @@ instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite', function($r
         else {
             $rootScope.searchActive = false;
             $rootScope.fixView = false;
+            if($rootScope.currentModal)
+                $rootScope.currentModal.close();
             ngProgressLite.start();
         }
     });
@@ -43,7 +45,7 @@ instaLurker.config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$l
         .state('home', {
             url: '/',
             templateUrl: 'views/home.html',
-            controller: 'HomeCtrl as homeCtrl',
+            controller: 'HomeCtrl as home',
             resolve: {
                 popular: function(InstagramAPI) {
                     return InstagramAPI.popular();
@@ -53,7 +55,8 @@ instaLurker.config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$l
         .state('myfeed', {
             url: '/myfeed',
             templateUrl: 'views/myfeed.html',
-            authRequired: true
+            authRequired: true,
+            controller: 'MyFeedCtrl as myFeed',
         })
         .state('followed', {
             url: '/followed',

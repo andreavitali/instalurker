@@ -6,7 +6,7 @@ var db = require('../config/db.js');
 //-----------------------------------------
 
 exports.followedList = function(req, res, next) {
-    db.User.findById(req.user.id).exec(function(err, user){
+    exports.getFollowedList(req.user.id).exec(function(err,user){
         if(err) return next(err);
         return res.json(user.followed);
     });
@@ -40,9 +40,24 @@ exports.unFollow = function(req, res, next) {
 // Uility functtions
 //-----------------------------------------
 
-exports.isUserFollowed = function(currentUserId, instagramId) {
+exports.isUserFollowed = function(userId, instagramId) {
     var ObjectId = require('mongoose').Types.ObjectId;
-    return db.User.count({'_id':new ObjectId(currentUserId), 'followed.id' : instagramId});
+    return db.User.count({'_id':new ObjectId(userId), 'followed.id' : instagramId});
+};
+
+exports.getFollowedList = function(userId) {
+    return db.User.findById(userId, 'followed');
+};
+
+exports.cacheMedia = function(userId, data) {
+    return db.User.findByIdAndUpdate(userId, {$set: {'cachedFeed':data}});
+};
+
+exports.getCachedMedia = function(userId, sliceSize) {
+    return db.User.findById(userId, {cachedFeed: {$slice:sliceSize}});
+/*        db.User.findByIdAndUpdate(userId, {$pull: {cachedFeed:{$slice:sliceSize}}}, function(err){
+            if(!err) console.log("Removed %d items from cache", sliceSize);
+        })*/
 };
 
 

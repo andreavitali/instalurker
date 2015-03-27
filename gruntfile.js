@@ -33,7 +33,7 @@ module.exports = function(grunt) {
         // concat
         concat: {
             options: {
-                separator: ';' // useful for next uglify
+                separator: ';' // useful for following uglify
             },
             app: {
                 src: 'public/js/**/*.js',

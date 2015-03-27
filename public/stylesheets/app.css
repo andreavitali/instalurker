@@ -5348,6 +5348,13 @@ span.prefix, span.postfix, .text-light {
     position: fixed;
     overflow: hidden; } }
 
+@media only screen and (max-width: 43em) {
+  [class*='small-block-grid-'] > li.thumb-wrapper .thumb-content:hover {
+    box-shadow: none; }
+  [class*='small-block-grid-'] > li.thumb-wrapper img {
+    border: none;
+    box-shadow: none; } }
+
 .ngProgressLite {
   pointer-events: none; }
   .ngProgressLite .ngProgressLiteBarShadow {
@@ -5436,9 +5443,9 @@ a.button#instagram-sign-in {
     .typeahead-popup li.active {
       background-color: #EEEEEE; }
     .typeahead-popup li .found-user {
+      position: relative;
       font-size: 0.85em;
-      overflow-x: hidden;
-      position: relative; }
+      overflow-x: hidden; }
       .typeahead-popup li .found-user img {
         width: 38px;
         height: 38px;
@@ -5527,7 +5534,7 @@ a.button#instagram-sign-in {
     .thumb > .thumb-content img {
       border: 5px #FFFFFF solid;
       box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2); }
-    .thumb > .thumb-content.video:before {
+    .thumb > .thumb-content.video a:before {
       display: inline-block;
       font: normal normal normal 16px/1 FontAwesome;
       font-size: inherit;
@@ -5540,8 +5547,8 @@ a.button#instagram-sign-in {
       text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
       position: absolute;
       font-size: 1.25rem;
-      right: 0.75rem;
-      top: 1.625rem; }
+      right: 0;
+      margin: 0.625rem; }
     .thumb > .thumb-content .thumb-text {
       opacity: 0;
       transition: all 0.3s linear; }
@@ -5604,6 +5611,10 @@ dl.sub-nav.followed dd input {
     border-radius: 0;
     box-shadow: none; } }
 
+@media only screen and (min-width:43.125em) {
+  .media-viewer .info {
+    padding-left: 0;
+    padding-right: 0; } }
 .media-viewer .info a.close-reveal-modal {
   top: 0; }
 @media only screen and (min-width:43.125em) {
@@ -5632,7 +5643,15 @@ dl.sub-nav.followed dd input {
     .media-viewer .info ul.comments {
       max-height: 388px; } }
   .media-viewer .info ul.comments > li {
+    position: relative;
     margin: 0.3125rem 0; }
+    .media-viewer .info ul.comments > li img {
+      width: 38px;
+      height: 38px;
+      max-width: 100%;
+      float: left; }
+    .media-viewer .info ul.comments > li .text {
+      margin-left: 43px; }
 
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none; }

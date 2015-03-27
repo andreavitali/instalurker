@@ -1,16 +1,13 @@
 <div class="thumb">
     <div class="thumb-header">
-        <div ng-if="userFeed && false" class="thumb-text text-left show-for-medium-up">{{::media.created_time * 1000 | date:'MMMM yyyy'}}</div>
+        <div ng-if="userFeed && media.showMonthYear" class="thumb-text text-left show-for-medium-up">{{::media.created_time * 1000 | date:'MMMM yyyy'}}</div>
     </div>
     <div class="thumb-content" ng-class="{'video':media.type == 'video'}">
         <div class="thumb-text text-center show-for-medium-up">{{::media.created_time * 1000 | date:'dd MMMM yyyy'}}</div>
-        <div class="content">
-            <!--<a ui-sref="media({ id: media.id })">-->
-            <a href="#" ng-click="openModal()">
-                <!--<img ng-src="{{::media.images.low_resolution.url}}">-->
-                <img src="http://placehold.it/306x306" />
-            </a>
-        </div>
+        <a href="#" ng-click="openModal()">
+            <img ng-src="{{::media.images.low_resolution.url}}">
+            <!--<img src="http://placehold.it/306x306" />-->
+        </a>
         <div class="thumb-text text-center show-for-medium-up">
             <a ng-if="!userFeed" ng-href="/user/{{::media.user.username}}">@{{::media.user.username}}</a>
             <div ng-if="userFeed">

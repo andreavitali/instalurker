@@ -27,7 +27,8 @@ var userSchema = new mongoose.Schema({
     full_name: String,
     picture: String,
     accessToken: String,
-    followed: [followedUserSchema]
+    followed: [followedUserSchema],
+    cachedFeed: Array
 });
 
 exports.User = mongoose.model('User', userSchema);

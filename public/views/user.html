@@ -22,7 +22,7 @@
             <h4><i class="fa fa-lock"></i> Private profile</h4>
         </div>
         <ul class="small-block-grid-2 medium-block-grid-4 large-block-grid-5"
-            infinite-scroll="userCtrl.loadMore()" infinite-scroll-disabled = "userCtrl.loading">
+            infinite-scroll="userCtrl.loadMore()" infinite-scroll-disabled = "userCtrl.loading" infinite-scroll-immediate-check="false">
             <li class="thumb-wrapper" ng-repeat="media in userCtrl.data track by media.id">
                 <thumbnail media="media" user-feed></thumbnail>
             </li>

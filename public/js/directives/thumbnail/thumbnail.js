@@ -26,11 +26,13 @@ instaLurker.directive('thumbnail', function(){
               modalInstance.result.then(function(){
                   $rootScope.fixView = false;
               });
+              $rootScope.currentModal = modalInstance;
           };
         }],
         templateUrl: 'js/directives/thumbnail/thumbnail.html',
         link: function (scope, elem, attrs) {
             if("userFeed" in attrs) scope.userFeed = true;
+            if("myFeed" in attrs) scope.myFeed = true;
         }
     }
 });

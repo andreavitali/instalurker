@@ -29,8 +29,11 @@
         <!--<a href="{{media.link}}">Link</a>-->
         <ul class="comments">
             <li ng-repeat="comment in media.comments.data">
-                <a class="bold" ui-sref="user({username:comment.from.username})">{{comment.from.username}}</a>
-                <div ng-bind="comment.text" linkify="instagram"></div>
+                <img ng-src="{{::comment.from.profile_picture}}">
+                <div class="text">
+                    <a class="bold" ui-sref="user({username:comment.from.username})">{{comment.from.username}}</a>
+                    <div ng-bind="comment.text" linkify="instagram"></div>
+                </div>
             </li>
         </ul>
     </div>
