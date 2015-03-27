@@ -2,10 +2,10 @@
 // Main module
 // ==========================================================================
 
-var instaLurker = angular.module('InstaLurker', ['ui.router','satellizer','infinite-scroll','ngProgressLite','linkify','envConstant']);
+var instaLurker = angular.module('InstaLurker', ['ui.router','satellizer','infinite-scroll','ngProgressLite','linkify','envConstant','vesparny.fancyModal']);
 
 // Startup
-instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite', function($rootScope, $window, $auth, ngProgressLite, $modalStack) {
+instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite', function($rootScope, $window, $auth, ngProgressLite) {
     // If authenticated load user on start and redirect to 'MyFeed' page
     if ($auth.isAuthenticated()) {
         $rootScope.currentUser = JSON.parse($window.localStorage.currentUser);
@@ -20,8 +20,8 @@ instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite', function($r
         else {
             $rootScope.searchActive = false;
             $rootScope.fixView = false;
-            if($rootScope.currentModal)
-                $rootScope.currentModal.close();
+/*            if($rootScope.currentModal)
+                $rootScope.currentModal.close();*/
             ngProgressLite.start();
         }
     });
@@ -78,17 +78,17 @@ instaLurker.config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$l
                     return InstagramAPI.user($stateParams.username);
                 }
             }
-        });
-/*        .state('media', {
+        })
+        .state('media', {
             url: '/media/:id',
             templateUrl:'views/media.html',
             controller:'MediaCtrl',
             resolve: {
-                media: function(InstagramAPI, $stateParams) {
-                    return InstagramAPI.media($stateParams.id);
+                media: function($window) {
+                    return JSON.parse($window.localStorage.currentMedia);
                 }
             }
-        });*/
+        });
 
     // Instagram authentication
     $authProvider.oauth2({

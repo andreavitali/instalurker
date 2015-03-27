@@ -173,7 +173,7 @@ instaLurker
         // Closing animation
         scope.animate = false;
 
-/*        var transitionEndEventName = $transition.transitionEndEventName;
+        var transitionEndEventName = false; //$transition.transitionEndEventName;
         if (transitionEndEventName) {
           // transition out
           var timeout = $timeout(afterAnimating, emulateTime);
@@ -186,9 +186,7 @@ instaLurker
         } else {
           // Ensure this call is async
           $timeout(afterAnimating, 0);
-        }*/
-
-          $timeout(afterAnimating, 0);
+        }
 
         function afterAnimating() {
           if (afterAnimating.done) {
@@ -246,7 +244,7 @@ instaLurker
         var scrollY = $window.pageYOffset || 0;
         var openAt = scrollY + marginTop;
 
-        var angularDomEl = angular.element('<div modal-window style="visibility: visible; top:' + openAt +'px;"></div>');
+        var angularDomEl = angular.element('<div modal-window style="visibility: visible;top:'+ openAt + 'px;"></div>');
         angularDomEl.attr('window-class', modal.windowClass);
         angularDomEl.attr('index', openedWindows.length() - 1);
         angularDomEl.attr('animate', 'animate');

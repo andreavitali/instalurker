@@ -29,13 +29,6 @@ span.prefix, span.postfix, .text-light {
   margin: 10px auto;
 }
 
-.no-scroll {
-  @media #{$small-only} {
-    position: fixed;
-    overflow: hidden;
-  }
-}
-
 // Thumb grid [small]
 // ==========================================================================
 
@@ -312,7 +305,7 @@ input.usersSearch {
       box-shadow: 0 0 2px 1px rgba($black,.2);
     }
 
-    &.video a:before {
+    &.video > a:before {
       @include fa-icon();
       content: $fa-var-video-camera;
       color: $white;
@@ -415,14 +408,26 @@ dl.sub-nav.followed {
 
 // Media modal
 // ==========================================================================
+body.modal-open { overflow: hidden; height: 100% };
 
-.small-modal {
+.custom-modal {
   @media #{$small-only} {
+    //margin-top: $topbar-height + rem-calc(5);
     width: auto;
     padding: $reveal-modal-padding 0 0 0;
     border: none;
     border-radius: 0;
-    box-shadow: none;
+  }
+  @media #{$small-up} {
+    overflow-y: scroll;
+    height: 100%;
+  }
+  @media #{$medium-up} {
+    margin-top: -40px;
+  }
+  @media #{$large-up} {
+    height: auto;
+    overflow-y: auto;
   }
 }
 
@@ -473,7 +478,7 @@ dl.sub-nav.followed {
       overflow-y: auto;
       font-size: 0.85rem;
       @media #{$medium-up} {
-        max-height: 388px;
+        max-height: 390px;
       }
 
       & > li {

@@ -136,8 +136,7 @@ var setShowMonthYear = function(data, prevData) {
     });
 };
 
-/*
 // Media controller
-instaLurker.controller('MediaCtrl', function($scope, media) {
-    $scope.media = media.data;
-});*/
+instaLurker.controller('MediaCtrl',['$scope','media', function($scope, media) {
+    $scope.media = media;
+}]);

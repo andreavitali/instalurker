@@ -5344,11 +5344,6 @@ span.prefix, span.postfix, .text-light {
   margin: 10px auto; }
 
 @media only screen and (max-width: 43em) {
-  .no-scroll {
-    position: fixed;
-    overflow: hidden; } }
-
-@media only screen and (max-width: 43em) {
   [class*='small-block-grid-'] > li.thumb-wrapper .thumb-content:hover {
     box-shadow: none; }
   [class*='small-block-grid-'] > li.thumb-wrapper img {
@@ -5534,7 +5529,7 @@ a.button#instagram-sign-in {
     .thumb > .thumb-content img {
       border: 5px #FFFFFF solid;
       box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2); }
-    .thumb > .thumb-content.video a:before {
+    .thumb > .thumb-content.video > a:before {
       display: inline-block;
       font: normal normal normal 16px/1 FontAwesome;
       font-size: inherit;
@@ -5603,13 +5598,27 @@ dl.sub-nav.followed dd input {
     .followed-user-wrapper .followed-user:hover .follow {
       opacity: 1; }
 
+body.modal-open {
+  overflow: hidden;
+  height: 100%; }
+
 @media only screen and (max-width: 43em) {
-  .small-modal {
+  .custom-modal {
     width: auto;
     padding: 0.3125rem 0 0 0;
     border: none;
-    border-radius: 0;
-    box-shadow: none; } }
+    border-radius: 0; } }
+@media only screen {
+  .custom-modal {
+    overflow-y: scroll;
+    height: 100%; } }
+@media only screen and (min-width:43.125em) {
+  .custom-modal {
+    margin-top: -40px; } }
+@media only screen and (min-width:64.063em) {
+  .custom-modal {
+    height: auto;
+    overflow-y: auto; } }
 
 @media only screen and (min-width:43.125em) {
   .media-viewer .info {
@@ -5641,7 +5650,7 @@ dl.sub-nav.followed dd input {
   font-size: 0.85rem; }
   @media only screen and (min-width:43.125em) {
     .media-viewer .info ul.comments {
-      max-height: 388px; } }
+      max-height: 390px; } }
   .media-viewer .info ul.comments > li {
     position: relative;
     margin: 0.3125rem 0; }
