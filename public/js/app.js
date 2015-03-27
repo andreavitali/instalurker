@@ -95,7 +95,7 @@ instaLurker.config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$l
         name: 'instagram',
         url: ENV.appURI + 'api/auth/instagram',
         redirectUri: ENV.appURI,
-        clientId: '85973222e459460bb99f8a229e0ce798',
+        clientId: ENV.instagramClientId,
         authorizationEndpoint: 'https://api.instagram.com/oauth/authorize'
     });
 

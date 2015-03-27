@@ -66,17 +66,17 @@ exports.instagramLogin = function (req, res) {
     // Exchange authorization code for access token
     request.post({url: accessTokenUrl, form: params, json: true}, function (error, response, body) {
         // Create a new user account or return an existing one
-        db.User.findOne({ id: body.user.id }, function(err, existingUser) {
+        db.User.findOne({ instagramId: body.user.id }, function(err, existingUser) {
             if (existingUser) {
                 var token = createToken(existingUser);
                 return res.send({ token: token, user: existingUser });
             }
 
             var user = new db.User({
-                id: body.user.id,
+                instagramId: body.user.id,
                 username: body.user.username,
-                fullName: body.user.full_name,
-                profile_picture: body.user.profile_picture,
+                full_name: body.user.full_name,
+                picture: body.user.profile_picture,
                 accessToken: body.access_token
             });
 

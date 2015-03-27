@@ -17,14 +17,16 @@ module.exports = function(grunt) {
             dev: {
                 constants: {
                     ENV: {
-                        appURI: 'http://localhost:3000'
+                        appURI: 'http://localhost:3000/',
+                        instagramClientId: '85973222e459460bb99f8a229e0ce798'
                     }
                 }
             },
             prod:{
                 constants: {
                     ENV: {
-                        appURI: 'http://instalurker-andreavitali.rhcloud.com'
+                        appURI: 'http://instalurker-andreavitali.rhcloud.com/',
+                        instagramClientId: '6e798574bcab460bb13c7c511e328335'
                     }
                 }
             }
