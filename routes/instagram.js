@@ -62,11 +62,11 @@ exports.user = function (req, res, next) {
                 complete: function (data) {
                     result.userInfo = data;
                     // check if followed
-/*                    followed.isUserFollowed(userId, instagramId).exec(function(err,count){
+                    followed.isUserFollowed(userId, instagramId).exec(function(err,count){
                         if(err) callback(err);
                         result.userInfo.followed = (count === 1);
                         callback();
-                    })*/
+                    })
                 },
                 error: function (errorMessage, errorObject, caller) {
                     if(errorMessage === 'APINotAllowedError')
