@@ -16,7 +16,7 @@ exports.feed = function (req, res, next) {
                 // remove them from cache
                 var lastTime = data.cachedFeed[data.cachedFeed.length - 1].created_time;
                 db.User.findByIdAndUpdate(req.user.id, {$pull: {cachedFeed: {created_time: {$gte: lastTime}}}}, function (err) {
-                    if (!err) console.log("Removed %d items from cache", sliceSize);
+                    //if (!err) console.log("Removed %d items from cache", sliceSize);
                 });
             }
             else {
@@ -61,9 +61,9 @@ var getAllUsersRecent = function(req, res, next) {
                 // 3: return first 20
                 res.json(sortedAllUsersRecent.slice(0, sliceSize));
                 // 4: cache the others
-                db.User.findByIdAndUpdate(req.user.id, {$set: {'cachedFeed':sortedAllUsersRecent.slice(sliceSize)}}, function (err) {
+                db.User.findByIdAndUpdate(req.user.id, {$set: {'cachedFeed':sortedAllUsersRecent.slice(sliceSize, sliceSize+100)}}, function (err) {
                     if (err) return next(err);
-                    console.log("Cached %d items", sortedAllUsersRecent.length - sliceSize);
+                    //console.log("Cached %d items", sortedAllUsersRecent.length - sliceSize);
                 });
             });
         })

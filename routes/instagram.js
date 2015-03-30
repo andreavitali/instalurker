@@ -61,12 +61,12 @@ exports.user = function (req, res, next) {
                 user_id: instagramId,
                 complete: function (data) {
                     result.userInfo = data;
-                    // check if followed
-                    followed.isUserFollowed(userId, instagramId).exec(function(err,count){
-                        if(err) callback(err);
-                        result.userInfo.followed = (count === 1);
+                    // check if followed and update mutable data on db
+                    followed.isUserFollowedAndUpdate(userId, result.userInfo).exec(function(err,doc) {
+                        if (err) callback(err);
+                        result.userInfo.followed = doc !== null;
                         callback();
-                    })
+                    });
                 },
                 error: function (errorMessage, errorObject, caller) {
                     if(errorMessage === 'APINotAllowedError')
