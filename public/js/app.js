@@ -2,7 +2,7 @@
 // Main module
 // ==========================================================================
 
-var instaLurker = angular.module('InstaLurker', ['ui.router','satellizer','infinite-scroll','ngProgressLite','linkify','envConstant','vesparny.fancyModal']);
+var instaLurker = angular.module('InstaLurker', ['ui.router','satellizer','infinite-scroll','ngProgressLite','linkify','envConstant']);
 
 // Startup
 instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite', function($rootScope, $window, $auth, ngProgressLite) {
@@ -56,7 +56,7 @@ instaLurker.config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$l
             url: '/myfeed',
             templateUrl: 'views/myfeed.html',
             authRequired: true,
-            controller: 'MyFeedCtrl as myFeed',
+            controller: 'MyFeedCtrl as myFeed'
         })
         .state('followed', {
             url: '/followed',
