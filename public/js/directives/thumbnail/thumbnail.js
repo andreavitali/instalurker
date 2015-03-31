@@ -30,10 +30,8 @@ instaLurker.directive('thumbnail', function(){
                     }
                 });
                 modalInstance.result.then(function(){
-                    // scroll top to compensate fixed navbar
                     var navBar = $document.find("#navBarContainer");
-                    if(navBar.css('position') === 'fixed')
-                        $document.scrollTop($document.scrollTop() - navBar.height());
+                    $document.scrollTop($document.scrollTop() - navBar.height());
                 });
                 $rootScope.currentModal = modalInstance;
             };

@@ -5,15 +5,14 @@
 var instaLurker = angular.module('InstaLurker', ['ui.router','satellizer','infinite-scroll','ngProgressLite','linkify','envConstant']);
 
 // Startup
-instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite', function($rootScope, $window, $auth, ngProgressLite) {
+instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite','$anchorScroll', function($rootScope, $window, $auth, ngProgressLite, $anchorScroll) {
     // If authenticated load user on start and redirect to 'MyFeed' page
     if ($auth.isAuthenticated()) {
         $rootScope.currentUser = JSON.parse($window.localStorage.currentUser);
-        //$state.go('myfeed');
     }
 
     // Loading progressbar and cancel routing to private path
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    $rootScope.$on('$stateChangeStart', function (event, toState) {
         if (toState !== null && toState.authRequired && !$auth.isAuthenticated()) {
             event.preventDefault();
         }
@@ -21,7 +20,7 @@ instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite', function($r
             $rootScope.searchActive = false;
             if($rootScope.currentModal) {
                 $rootScope.currentModal.close();
-                $window.scrollTop($window.scrollTop()+45); // FIX for mobile
+                $anchorScroll(0);
             }
             ngProgressLite.start();
         }

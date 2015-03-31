@@ -5333,6 +5333,9 @@ span.prefix, span.postfix, .text-light {
 .margin-from-header {
   margin-top: 10px; }
 
+.margin-from-bottom {
+  margin-bottom: 20px; }
+
 .bold {
   font-weight: bold; }
 
