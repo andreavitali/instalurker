@@ -125,12 +125,12 @@ $topbar-dropdown-arrows: true !default; //Set false to remove the \00bb >> text 
     // Wrapped around .top-bar to make it stick to the top
     .fixed {
       width: 100%;
-      position: relative;
-      @media #{$small-only} {
+      //position: relative;
+      //@media #{$small-only} {
         position: fixed;
         top: 0;
         #{$default-float}: 0;
-      }
+      //}
 
       z-index: 99;
 

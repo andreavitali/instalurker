@@ -82,7 +82,7 @@
         </ul>
 
         <!-- Search input mobile-only -->
-        <div id="searchOverlay" class="show-for-small-only" ng-cloak ng-show="$root.searchActive">
+        <div id="searchOverlay" class="show-for-small-only" ng-cloak ng-show="$root.searchActive === true">
             <div class="input-wrapper row collapse">
                 <div class="small-1 columns">
                 <span class="prefix">
@@ -100,7 +100,7 @@
     </div>
 
     <!-- View container -->
-    <div ui-view></div>
+    <div id="viewContainer" ui-view></div>
 
     <!-- Scripts -->
 
@@ -117,7 +117,6 @@
     <script src="vendor/satellizer.min.js"></script>
     <script src="vendor/ng-infinite-scroll.min.js"></script>
     <script src="vendor/ngprogress-lite.min.js"></script>
-    <script src="vendor/angular-fancy-modal.js"></script>
 
     <script src="js/envConstant.js"></script>
     <script src="js/app.js"></script>

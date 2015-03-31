@@ -19,7 +19,6 @@ instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite', function($r
         }
         else {
             $rootScope.searchActive = false;
-            $rootScope.fixView = false;
             if($rootScope.currentModal) {
                 $rootScope.currentModal.close();
                 $window.scrollTop($window.scrollTop()+45); // FIX for mobile

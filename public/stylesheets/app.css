@@ -4192,13 +4192,10 @@ meta.foundation-mq-topbar {
 
 .fixed {
   width: 100%;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 99; }
-  @media only screen and (max-width: 43em) {
-    .fixed {
-      position: fixed;
-      top: 0;
-      left: 0; } }
   .fixed.expanded:not(.top-bar) {
     overflow-y: auto;
     height: auto;
@@ -5343,6 +5340,9 @@ span.prefix, span.postfix, .text-light {
   width: 200px;
   margin: 10px auto; }
 
+#viewContainer {
+  margin-top: 2.8125rem; }
+
 @media only screen and (max-width: 43em) {
   [class*='small-block-grid-'] > li.thumb-wrapper .thumb-content:hover {
     box-shadow: none; }
@@ -5465,9 +5465,6 @@ a.button#instagram-sign-in {
   background-color: #fbfbfb;
   border-bottom: 1px solid #DDDDDD;
   box-shadow: 1px 0 0 rgba(0, 0, 0, 0.05), -1px 0 0 rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.05); }
-  @media only screen and (max-width: 43em) {
-    .header {
-      margin-top: 2.8125rem; } }
   .header .header-wrapper {
     position: relative;
     margin: 5px; }

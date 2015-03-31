@@ -7,7 +7,7 @@
             Your browser does not support HTML5 videos.
         </video>
         <!--<img ng-if="media.type === 'image'" src="http://placehold.it/640x640" />-->
-        <img ng-if="media.type === 'image'" ng-src="{{media.images.low_resolution.url}}" />
+        <img ng-if="media.type === 'image'" ng-src="{{media.images.standard_resolution.url}}" style="width:{{media.images.standard_resolution.width}}" />
     </div>
     <div class="info radius columns small-12 large-4">
         <div class="upper-info">
