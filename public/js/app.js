@@ -12,7 +12,7 @@ instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite','$anchorScro
     }
 
     // Loading progressbar and cancel routing to private path
-    $rootScope.$on('$stateChangeStart', function (event, toState) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
         if (toState !== null && toState.authRequired && !$auth.isAuthenticated()) {
             event.preventDefault();
         }
@@ -22,6 +22,7 @@ instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite','$anchorScro
                 $rootScope.currentModal.close();
                 $anchorScroll(0);
             }
+            $rootScope.queryString = toState.name==='user' ? toParams.username : undefined;
             ngProgressLite.start();
         }
     });

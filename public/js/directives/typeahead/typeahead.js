@@ -418,6 +418,7 @@ return {
             };
 
             scope.selectMatch = function (activeIdx) {
+                scope.active = activeIdx;
                 scope.select({activeIdx:activeIdx});
             };
         }
