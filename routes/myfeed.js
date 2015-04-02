@@ -4,7 +4,7 @@ var instagram = require('instagram-node-lib');
 var async = require('async');
 
 var sliceSize = 20;
-var maxCacheSize = 400;
+var maxCacheSize = 300;
 
 exports.feed = function (req, res, next) {
     // Check if is a 'load more' request
@@ -30,22 +30,28 @@ exports.feed = function (req, res, next) {
     }
 };
 
+var currentUserId;
+
 var getAllUsersRecent = function(req, res, next) {
     // Common data and functions
     var allUsersRecent = [];
     var parallelUsersRequests = 20;
-    var mediaCountForEachUser = 20;
+    //var mediaCountForEachUser = 20;
     var userRecentRequest = function (item, callback) {
+        currentUserId = item.id;
         instagram.users.recent({
             user_id: item.id,
             max_timestamp: req.params.max_timestamp || 0,
-            count: mediaCountForEachUser,
+            count: 10, //mediaCountForEachUser,
             complete: function (data, pagination) {
                 allUsersRecent = allUsersRecent.concat(data);
                 callback();
             },
             error: function (errorMessage, errorObject, caller) {
-                callback(new Error(errorMessage + ' from ' + caller));
+                if(errorMessage === 'APINotAllowedError')
+                    callback();
+                else
+                    callback(new Error(errorMessage + ' from ' + caller));
             }
         });
     };
@@ -54,7 +60,7 @@ var getAllUsersRecent = function(req, res, next) {
     // 1: get N (more) recent media from each user
     followed.getFollowedList(req.user.id).exec(function (err, user) {
         if (err) return next(err);
-        mediaCountForEachUser = Math.min(4, Math.floor(maxCacheSize/user.followed));
+        //mediaCountForEachUser = Math.min(4, Math.floor(maxCacheSize/user.followed));
         async.eachLimit(user.followed, parallelUsersRequests, userRecentRequest, function (err) {
             if (err) return next(err);
             // 2: order by createdTime
@@ -65,7 +71,7 @@ var getAllUsersRecent = function(req, res, next) {
                 // 3: return first 20
                 res.json(sortedAllUsersRecent.slice(0, sliceSize));
                 // 4: cache the others
-                db.User.findByIdAndUpdate(req.user.id, {$set: {'cachedFeed':sortedAllUsersRecent.slice(sliceSize)}}, function (err) {
+                db.User.findByIdAndUpdate(req.user.id, {$set: {'cachedFeed':sortedAllUsersRecent.slice(sliceSize, maxCacheSize-sliceSize)}}, function (err) {
                     if (err) return next(err);
                     //console.log("Cached %d items", sortedAllUsersRecent.length - sliceSize);
                 });
