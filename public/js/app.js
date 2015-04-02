@@ -17,16 +17,17 @@ instaLurker.run(['$rootScope', '$window', '$auth', 'ngProgressLite','$anchorScro
             event.preventDefault();
         }
         else {
-            $rootScope.searchActive = false;
-            if($rootScope.currentModal) {
-                $rootScope.currentModal.close();
-                $anchorScroll(0);
-            }
             $rootScope.queryString = toState.name==='user' ? toParams.username : undefined;
+            $rootScope.searchActive = false;
             ngProgressLite.start();
         }
     });
     $rootScope.$on('$stateChangeSuccess', function () {
+        if($rootScope.currentModal) {
+            $rootScope.currentModal.close();
+            $rootScope.currentModal = undefined;
+            $anchorScroll(0);
+        }
         ngProgressLite.done();
     });
     $rootScope.$on('$stateChangeError', function () {

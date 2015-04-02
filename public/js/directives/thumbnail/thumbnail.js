@@ -19,6 +19,7 @@ instaLurker.directive('thumbnail', function(){
                     windowClass: 'custom-modal',
                     controller: ['$scope', '$modalInstance', 'media', function($scope, $modalInstance, media) {
                         $scope.cancel = function () {
+                            $rootScope.currentModal = undefined;
                             $modalInstance.close();
                         };
                         $scope.media = media;
