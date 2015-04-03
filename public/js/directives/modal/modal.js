@@ -265,10 +265,10 @@ instaLurker
       };
 
       $modalStack.dismiss = function (modalInstance, reason) {
-        var modalWindow = openedWindows.get(modalInstance).value;
-        if (modalWindow) {
-          modalWindow.deferred.reject(reason);
-          removeModalWindow(modalInstance);
+        var window = openedWindows.get(modalInstance);
+        if(window && window.value) {
+            window.value.deferred.reject(reason);
+            removeModalWindow(modalInstance);
         }
       };
 

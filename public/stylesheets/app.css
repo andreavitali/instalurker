@@ -5434,8 +5434,7 @@ a.button#instagram-sign-in {
       width: 300px;
       max-width: 300px;
       overflow-y: scroll;
-      max-height: 440px;
-      margin-top: -2.8125rem; } }
+      max-height: 440px; } }
   .typeahead-popup li {
     border-bottom: 1px solid #DDDDDD; }
     .typeahead-popup li.active {
