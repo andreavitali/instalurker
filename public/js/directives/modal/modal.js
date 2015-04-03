@@ -259,7 +259,7 @@ instaLurker
       $modalStack.close = function (modalInstance, result) {
           var window = openedWindows.get(modalInstance);
           if(window && window.value) {
-              window.value.deferred.resolve(reason);
+              window.value.deferred.resolve(result);
               removeModalWindow(modalInstance);
           }
       };
