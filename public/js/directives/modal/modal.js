@@ -257,11 +257,11 @@ instaLurker
       };
 
       $modalStack.close = function (modalInstance, result) {
-        var modalWindow = openedWindows.get(modalInstance).value;
-        if (modalWindow) {
-          modalWindow.deferred.resolve(result);
-          removeModalWindow(modalInstance);
-        }
+          var window = openedWindows.get(modalInstance);
+          if(window && window.value) {
+              window.value.deferred.resolve(reason);
+              removeModalWindow(modalInstance);
+          }
       };
 
       $modalStack.dismiss = function (modalInstance, reason) {
