@@ -41,7 +41,7 @@ app.get('/api/popular', instagram.popular);
 app.get('/api/feed/:max_timestamp', auth.isAuthenticated, myFeed.feed);
 app.get('/api/search/:q', auth.optionalAuthentication, instagram.search);
 app.get('/api/user/:username', auth.optionalAuthentication, instagram.idFromUsernameMiddleware, instagram.user);
-app.get('/api/user/:id/:next_max_id', instagram.userMore);
+app.get('/api/user/:id/:next_max_id', auth.optionalAuthentication, instagram.userMore);
 app.get('/api/media/:id', instagram.getMedia);
 
 //-----------------------------------------

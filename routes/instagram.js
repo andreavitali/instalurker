@@ -52,6 +52,7 @@ exports.search = function (req, res, next) {
 exports.user = function (req, res, next) {
     var instagramId = req.id;
     var userId = req.user ? req.user.id : undefined;
+    var accessToken = req.user ? req.user.accessToken : undefined;
     var result = {};
 
     async.parallel([
@@ -59,6 +60,7 @@ exports.user = function (req, res, next) {
         function(callback) {
             instagram.users.info({
                 user_id: instagramId,
+                access_token: accessToken,
                 complete: function (data) {
                     result.userInfo = data;
                     // check if followed and update mutable data on db
@@ -80,6 +82,7 @@ exports.user = function (req, res, next) {
         function(callback) {
             instagram.users.recent({
                 user_id: instagramId,
+                access_token: accessToken,
                 complete: function (data, pagination) {
                     result.data = data;
                     result.pagination = pagination;
@@ -101,9 +104,11 @@ exports.user = function (req, res, next) {
 
 // User feed (more media)
 exports.userMore = function (req, res, next) {
+    var accessToken = req.user ? req.user.accessToken : undefined;
     instagram.users.recent({
         user_id: req.params.id,
         max_id: req.params.next_max_id,
+        access_token: accessToken,
         complete: function (data, pagination) {
             res.send({'data':data, 'pagination':pagination});
         },
