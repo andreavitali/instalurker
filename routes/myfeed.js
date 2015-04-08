@@ -43,6 +43,7 @@ var getAllUsersRecent = function(req, res, next) {
             user_id: item.id,
             max_timestamp: req.params.max_timestamp || 0,
             count: 10, //mediaCountForEachUser,
+            access_token: req.user.accessToken,
             complete: function (data, pagination) {
                 allUsersRecent = allUsersRecent.concat(data);
                 callback();
