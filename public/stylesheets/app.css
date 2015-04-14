@@ -5600,6 +5600,15 @@ dl.sub-nav.followed dd input {
 body.modal-open {
   overflow: hidden;
   height: 100%; }
+  @media only screen and (min-width:43.125em) {
+    body.modal-open {
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; } }
 
 @media only screen and (max-width: 43em) {
   .custom-modal {
@@ -5613,11 +5622,9 @@ body.modal-open {
     height: 100%; } }
 @media only screen and (min-width:43.125em) {
   .custom-modal {
-    margin-top: -40px; } }
-@media only screen and (min-width:64.063em) {
-  .custom-modal {
+    margin-top: -40px;
     height: auto;
-    overflow-y: auto; } }
+    overflow: auto; } }
 
 @media only screen and (min-width:43.125em) {
   .media-viewer .info {
