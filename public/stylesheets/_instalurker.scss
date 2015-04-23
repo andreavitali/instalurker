@@ -413,15 +413,6 @@ dl.sub-nav.followed {
 body.modal-open {
   overflow: hidden;
   height: 100%;
-  @media #{$medium-up} {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
 };
 
 .custom-modal {
