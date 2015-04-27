@@ -427,9 +427,10 @@ body.modal-open {
     height: 100%;
   }
   @media #{$medium-up} {
-    margin-top: -40px;
-    height: auto;
+    width: auto;
     overflow: auto;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 

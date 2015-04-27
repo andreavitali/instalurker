@@ -5613,9 +5613,10 @@ body.modal-open {
     height: 100%; } }
 @media only screen and (min-width:43.125em) {
   .custom-modal {
-    margin-top: -40px;
-    height: auto;
-    overflow: auto; } }
+    width: auto;
+    overflow: auto;
+    top: 50%;
+    transform: translateY(-50%); } }
 
 @media only screen and (min-width:43.125em) {
   .media-viewer .info {

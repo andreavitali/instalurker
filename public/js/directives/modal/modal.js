@@ -235,16 +235,16 @@ instaLurker
 
         // Create a faux modal div just to measure its
         // distance to top
-        var faux = angular.element('<div class="reveal-modal" style="z-index:-1""></div>');
+/*        var faux = angular.element('<div class="reveal-modal" style="z-index:-1""></div>');
         body.append(faux[0]);
         var marginTop = parseInt(getComputedStyle(faux[0]).top) || 0;
-        faux.remove();
+        faux.remove();*/
 
         // Using pageYOffset instead of scrollY to ensure compatibility with IE
         var scrollY = $window.pageYOffset || 0;
-        var openAt = scrollY + marginTop;
+        //var openAt = 20; //scrollY + marginTop;
 
-        var angularDomEl = angular.element('<div modal-window style="visibility: visible;top:'+ openAt + 'px;"></div>');
+        var angularDomEl = angular.element('<div modal-window style="visibility: visible;"></div>');
         angularDomEl.attr('window-class', modal.windowClass);
         angularDomEl.attr('index', openedWindows.length() - 1);
         angularDomEl.attr('animate', 'animate');
@@ -252,7 +252,8 @@ instaLurker
 
         var modalDomEl = $compile(angularDomEl)(modal.scope);
         openedWindows.top().value.modalDomEl = modalDomEl;
-        body.append(modalDomEl);
+        //body.append(modalDomEl);
+          backdropDomEl.append(modalDomEl);
         body.addClass(OPENED_MODAL_CLASS);
       };
 
