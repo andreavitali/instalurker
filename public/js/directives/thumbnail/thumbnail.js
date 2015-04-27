@@ -31,8 +31,8 @@ instaLurker.directive('thumbnail', function(){
                     }
                 });
                 modalInstance.result.then(function(){
-                    var navBar = $document.find("#navBarContainer");
-                    $document.scrollTop($document.scrollTop() - navBar.height());
+                    //var navBar = $document.find("#navBarContainer");
+                    //$document.scrollTop($document.scrollTop() - navBar.height());
                 });
                 $rootScope.currentModal = modalInstance;
             };

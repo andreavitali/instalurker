@@ -428,6 +428,7 @@ body.modal-open {
   }
   @media #{$medium-up} {
     width: auto;
+    height: auto;
     overflow: auto;
     top: 50%;
     transform: translateY(-50%);

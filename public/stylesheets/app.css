@@ -5614,6 +5614,7 @@ body.modal-open {
 @media only screen and (min-width:43.125em) {
   .custom-modal {
     width: auto;
+    height: auto;
     overflow: auto;
     top: 50%;
     transform: translateY(-50%); } }
