@@ -117,7 +117,7 @@ instaLurker.controller('MyFeedCtrl',['InstagramAPI', function(InstagramAPI) {
                         myFeedCtrl.next_max_timestamp = 0;
                     }
                     else {
-                        processData(false, result.data.data, myFeedCtrl.data);
+                        processData(false, result.data, myFeedCtrl.data);
                         myFeedCtrl.data = myFeedCtrl.data.concat(result.data);
                         myFeedCtrl.next_max_timestamp = result.data[result.data.length - 1].created_time;
                     }
