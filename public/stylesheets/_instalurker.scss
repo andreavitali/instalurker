@@ -417,7 +417,7 @@ body.modal-open {
 
 .custom-modal {
   @media #{$small-only} {
-    width: auto;
+    width: 100%;
     padding: $reveal-modal-padding 0 0 0;
     border: none;
     border-radius: 0;
@@ -436,6 +436,40 @@ body.modal-open {
 }
 
 .media-viewer {
+
+  .content {
+    @mixin navIndicator($content) {
+      @include fa-icon();
+      content: $content;
+      color: $white;
+      text-shadow: 0 0 5px rgba($black, .8);
+      position: absolute;
+      top: 50%;
+      font-size: rem-calc(40);
+      margin-top: -(rem-calc(20));
+    }
+
+    a.prevIndicator:before {
+        @include navIndicator($fa-var-angle-left);
+        left: $reveal-modal-padding;
+        @media #{$medium-up and $landscape} {
+          display: none;
+        }
+    }
+    a.nextIndicator:before {
+      @include navIndicator($fa-var-angle-right);
+      right: $column-gutter / 2;
+      @media #{$medium-up and $landscape} {
+        display: none;
+      }
+    }
+
+    &:hover {
+      a:before {
+        display: inline-block;
+      }
+    }
+  }
 
   .info {
 

@@ -18,11 +18,17 @@ instaLurker.directive('thumbnail', function(){
                     templateUrl: 'views/media.html',
                     windowClass: 'custom-modal',
                     controller: ['$scope', '$modalInstance', 'media', function($scope, $modalInstance, media) {
+                        $scope.media = media;
                         $scope.cancel = function () {
                             $rootScope.currentModal = undefined;
                             $modalInstance.close();
                         };
-                        $scope.media = media;
+                        $scope.goPrev = function() {
+                            if($scope.media.prev) $scope.media = $scope.media.prev;
+                        };
+                        $scope.goNext = function() {
+                            if($scope.media.next) $scope.media = $scope.media.next;
+                        };
                     }],
                     resolve: {
                         media: function () {

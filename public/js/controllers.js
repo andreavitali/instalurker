@@ -53,7 +53,7 @@ instaLurker.controller('UserCtrl',['user', 'InstagramAPI', '$auth', '$stateParam
     else {
         userCtrl.user = user.data.userInfo;
         userCtrl.data = user.data.data;
-        setShowMonthYear(userCtrl.data);
+        processData(true, userCtrl.data);
         userCtrl.next_max_id = user.data.pagination ? user.data.pagination.next_max_id : undefined;
     }
 
@@ -62,7 +62,7 @@ instaLurker.controller('UserCtrl',['user', 'InstagramAPI', '$auth', '$stateParam
             userCtrl.loading = true;
             InstagramAPI.userMore(userCtrl.user.id, userCtrl.next_max_id)
                 .then(function (result) {
-                    setShowMonthYear(result.data.data, userCtrl.data);
+                    processData(true, result.data.data, userCtrl.data);
                     userCtrl.data = userCtrl.data.concat(result.data.data);
                     userCtrl.next_max_id = result.data.pagination.next_max_id;
                     userCtrl.loading = false;
@@ -102,6 +102,7 @@ instaLurker.controller('MyFeedCtrl',['InstagramAPI', function(InstagramAPI) {
     InstagramAPI.myFeed()
         .then(function (result) {
             myFeedCtrl.data = result.data;
+            processData(false,myFeedCtrl.data);
             myFeedCtrl.next_max_timestamp = result.data[result.data.length - 1].created_time;
             myFeedCtrl.loading = false;
         });
@@ -116,6 +117,7 @@ instaLurker.controller('MyFeedCtrl',['InstagramAPI', function(InstagramAPI) {
                         myFeedCtrl.next_max_timestamp = 0;
                     }
                     else {
+                        processData(false, result.data.data, myFeedCtrl.data);
                         myFeedCtrl.data = myFeedCtrl.data.concat(result.data);
                         myFeedCtrl.next_max_timestamp = result.data[result.data.length - 1].created_time;
                     }
@@ -125,14 +127,22 @@ instaLurker.controller('MyFeedCtrl',['InstagramAPI', function(InstagramAPI) {
     };
 }]);
 
-// Show "Month Year" over thumbnail if it's the first of that month
-var setShowMonthYear = function(data, prevData) {
-    var prevMonth = prevData ? new Date(prevData[prevData.length-1].created_time*1000).getMonth() : undefined;
+var processData = function(showMonthYear, data, prevData) {
+    var prevMonth = prevData && showMonthYear ? new Date(prevData[prevData.length-1].created_time*1000).getMonth() : undefined;
     angular.forEach(data, function(item, index) {
-        var currentItemMonth = new Date(item.created_time*1000).getMonth();
-        item.showMonthYear = (index === 0 && !prevMonth)
+        if(showMonthYear) {
+            var currentItemMonth = new Date(item.created_time*1000).getMonth();
+            item.showMonthYear = (index === 0 && !prevMonth)
             || (index === 0 && currentItemMonth != prevMonth
             || (index !== 0 && currentItemMonth != new Date(data[index-1].created_time*1000).getMonth()));
+        }
+
+        item.prev = data[index-1];
+        item.next = data[index+1];
+        if(prevData && index == 0) {
+            item.prev = prevData[prevData.length-1];
+            prevData[prevData.length-1].next = item;
+        }
     });
 };
 

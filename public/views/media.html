@@ -1,5 +1,5 @@
 <div class="row media-viewer">
-    <div class="columns small-12 large-8">
+    <div class="content columns small-12 large-8">
         <video id="videoPlayer" ng-if="media.type === 'video'"
                poster="{{media.images.standard_resolution.url}}"
                width="100%" height="auto" preload controls onclick="this.play()">
@@ -8,6 +8,8 @@
         </video>
         <!--<img ng-if="media.type === 'image'" src="http://placehold.it/640x640" style="max-width:{{media.images.standard_resolution.width}}" />-->
         <img ng-if="media.type === 'image'" ng-src="{{media.images.standard_resolution.url}}" style="max-width:{{media.images.standard_resolution.width}}" />
+        <a class="prevIndicator" ng-click="goPrev()" ng-if="media.prev"></a>
+        <a class="nextIndicator" ng-click="goNext()" ng-if="media.next"></a>
     </div>
     <div class="info radius columns small-12 large-4">
         <div class="upper-info">
