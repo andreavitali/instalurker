@@ -17,17 +17,24 @@ instaLurker.directive('thumbnail', function(){
                 var modalInstance = $modal.open({
                     templateUrl: 'views/media.html',
                     windowClass: 'custom-modal',
-                    controller: ['$scope', '$modalInstance', 'media', function($scope, $modalInstance, media) {
+                    controller: ['$scope', '$modalInstance', 'media', 'linkify', '$sce', function($scope, $modalInstance, media, linkify, $sce) {
+                        media.caption.text = $sce.trustAsHtml(linkify['instagram'](media.caption.text));
                         $scope.media = media;
                         $scope.cancel = function () {
                             $rootScope.currentModal = undefined;
                             $modalInstance.close();
                         };
                         $scope.goPrev = function() {
-                            if($scope.media.prev) $scope.media = $scope.media.prev;
+                            if($scope.media.prev) {
+                                $scope.media = $scope.media.prev;
+                                $scope.media.caption.text = $sce.trustAsHtml(linkify['instagram']($scope.media.prev.caption.text));
+                            }
                         };
                         $scope.goNext = function() {
-                            if($scope.media.next) $scope.media = $scope.media.next;
+                            if($scope.media.next) {
+                                $scope.media = $scope.media.next;
+                                $scope.media.caption.text = $sce.trustAsHtml(linkify['instagram']($scope.media.next.caption.text));
+                            }
                         };
                     }],
                     resolve: {
