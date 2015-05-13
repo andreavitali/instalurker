@@ -18,7 +18,7 @@ instaLurker.directive('thumbnail', function(){
                     templateUrl: 'views/media.html',
                     windowClass: 'custom-modal',
                     controller: ['$scope', '$modalInstance', 'media', 'linkify', '$sce', function($scope, $modalInstance, media, linkify, $sce) {
-                        media.caption.text = $sce.trustAsHtml(linkify['instagram'](media.caption.text));
+                        media.caption.text = $sce.trustAsHtml(linkify['instagram'](media.caption.text.toString()));
                         $scope.media = media;
                         $scope.cancel = function () {
                             $rootScope.currentModal = undefined;
