@@ -17,8 +17,8 @@ instaLurker.directive('thumbnail', function(){
                 var modalInstance = $modal.open({
                     templateUrl: 'views/media.html',
                     windowClass: 'custom-modal',
-                    controller: ['$scope', '$modalInstance', 'media', 'linkify', '$sce', function($scope, $modalInstance, media, linkify, $sce) {
-                        media.caption.text = $sce.trustAsHtml(linkify['instagram'](media.caption.text.toString()));
+                    controller: ['$scope', '$modalInstance', 'media', /*'linkify', '$sce',*/ function($scope, $modalInstance, media/*, linkify, $sce*/) {
+                        //media.caption.text = $sce.trustAsHtml(linkify['instagram'](media.caption.text.toString()));
                         $scope.media = media;
                         $scope.cancel = function () {
                             $rootScope.currentModal = undefined;
@@ -27,13 +27,13 @@ instaLurker.directive('thumbnail', function(){
                         $scope.goPrev = function() {
                             if($scope.media.prev) {
                                 $scope.media = $scope.media.prev;
-                                $scope.media.caption.text = $sce.trustAsHtml(linkify['instagram']($scope.media.prev.caption.text));
+                                //$scope.media.caption.text = $sce.trustAsHtml(linkify['instagram']($scope.media.prev.caption.text));
                             }
                         };
                         $scope.goNext = function() {
                             if($scope.media.next) {
                                 $scope.media = $scope.media.next;
-                                $scope.media.caption.text = $sce.trustAsHtml(linkify['instagram']($scope.media.next.caption.text));
+                                //$scope.media.caption.text = $sce.trustAsHtml(linkify['instagram']($scope.media.next.caption.text));
                             }
                         };
                     }],

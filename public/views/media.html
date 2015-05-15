@@ -2,7 +2,8 @@
     <div class="content columns small-12 large-8">
         <video id="videoPlayer" ng-if="media.type === 'video'"
                poster="{{media.images.standard_resolution.url}}"
-               width="100%" preload controls onclick="this.play()">
+               width="{{media.videos.standard_resolution.width-20}}px"
+               preload controls onclick="this.play()">
             <source src="{{media.videos.standard_resolution.url}}" />
             Your browser does not support HTML5 videos.
         </video>
@@ -16,7 +17,7 @@
             <a class="close-reveal-modal show-for-small-only" ng-click="cancel()">&#215;</a>
             <h5 class="bold"><a ui-sref="user({username:media.user.username})">{{media.user.username}}</a></h5>
             <h6><a class="text-light" ng-href="{{media.link}}">{{media.created_time*1000 | date:'dd/MM/yyyy HH:mm'}}</a></h6>
-            <div class="caption" ng-bind-html="media.caption.text"></div>
+            <div class="caption" ng-bind="media.caption.text" linkify="instagram"></div>
             <hr/>
             <div ng-cloak ng-if="media.likes.count > 0" class="likes text-light">
                 <div>Likes to
