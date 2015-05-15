@@ -5606,18 +5606,19 @@ body.modal-open {
     width: 100%;
     padding: 0.3125rem 0 0 0;
     border: none;
-    border-radius: 0; } }
+    border-radius: 0;
+    overflow-y: scroll; } }
 @media only screen {
   .custom-modal {
-    overflow-y: scroll;
     height: 100%; } }
 @media only screen and (min-width:43.125em) {
   .custom-modal {
     width: auto;
     height: auto;
-    overflow: auto;
+    overflow: hidden;
     top: 50%;
-    transform: translateY(-50%); } }
+    transform: translateY(-50%);
+    padding: 5px; } }
 
 .media-viewer .content a.prevIndicator:before {
   display: inline-block;

@@ -2,8 +2,7 @@
     <div class="content columns small-12 large-8">
         <video id="videoPlayer" ng-if="media.type === 'video'"
                poster="{{media.images.standard_resolution.url}}"
-               width="{{media.videos.standard_resolution.width-20}}px"
-               preload controls onclick="this.play()">
+               width="100%" preload controls onclick="this.play()">
             <source src="{{media.videos.standard_resolution.url}}" />
             Your browser does not support HTML5 videos.
         </video>
