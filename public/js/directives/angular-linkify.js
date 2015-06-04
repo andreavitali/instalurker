@@ -1,5 +1,5 @@
 angular.module('linkify', [])
-    .filter('linkify',['ENV', function (ENV) {
+    .filter('linkify',['ENV','$sce', function (ENV, $sce) {
 
         function linkify (_str, type) {
             if (!_str) {
@@ -33,10 +33,11 @@ angular.module('linkify', [])
             }
 
             if(type==='instagram') {
-                _text = _text.replace(/(|\s)*@([a-zA-Z0-9_.]+)/g, '$1<a href="'+ ENV.appURI +'/user/$2">@$2</a>');
+                _text = _text.replace(/(|\s)*@([a-zA-Z0-9_.]+)/g, '$1<a href="'+ ENV.appURI +'user/$2">@$2</a>');
             }
 
-            return _text;
+            return $sce.trustAsHtml(_text);
+            //return text;
         }
 
         return function (text, type) {

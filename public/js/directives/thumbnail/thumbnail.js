@@ -17,8 +17,7 @@ instaLurker.directive('thumbnail', function(){
                 var modalInstance = $modal.open({
                     templateUrl: 'views/media.html',
                     windowClass: 'custom-modal',
-                    controller: ['$scope', '$modalInstance', 'media', /*'linkify', '$sce',*/ function($scope, $modalInstance, media/*, linkify, $sce*/) {
-                        //media.caption.text = $sce.trustAsHtml(linkify['instagram'](media.caption.text.toString()));
+                    controller: ['$scope', '$modalInstance', 'media', function($scope, $modalInstance, media) {
                         $scope.media = media;
                         $scope.cancel = function () {
                             $rootScope.currentModal = undefined;
@@ -27,15 +26,26 @@ instaLurker.directive('thumbnail', function(){
                         $scope.goPrev = function() {
                             if($scope.media.prev) {
                                 $scope.media = $scope.media.prev;
-                                //$scope.media.caption.text = $sce.trustAsHtml(linkify['instagram']($scope.media.prev.caption.text));
+                                $scope.$apply();
                             }
                         };
                         $scope.goNext = function() {
                             if($scope.media.next) {
                                 $scope.media = $scope.media.next;
-                                //$scope.media.caption.text = $sce.trustAsHtml(linkify['instagram']($scope.media.next.caption.text));
+                                $scope.$apply();
                             }
                         };
+
+                        // Key navigation
+                        function keyNavigation(keyevent) {
+                            if(keyevent.keyCode == 37) $scope.goPrev();
+                            else if(keyevent.keyCode == 39) $scope.goNext();
+                            //$scope.apply();
+                        }
+                        $document.on('keyup', keyNavigation);
+                        $scope.$on('$destroy', function () {
+                            $document.off('keyup', keyNavigation);
+                        });
                     }],
                     resolve: {
                         media: function () {
