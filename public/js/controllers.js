@@ -99,7 +99,7 @@ instaLurker.controller('MyFeedCtrl',['InstagramAPI', function(InstagramAPI) {
 
     // First load
     myFeedCtrl.loading = true;
-    InstagramAPI.myFeed()
+    InstagramAPI.myFeed(0)
         .then(function (result) {
             myFeedCtrl.data = result.data;
             processData(false,myFeedCtrl.data);
@@ -127,6 +127,7 @@ instaLurker.controller('MyFeedCtrl',['InstagramAPI', function(InstagramAPI) {
     };
 }]);
 
+// Show month and year on month change. Enable linked media navigation
 var processData = function(showMonthYear, data, prevData) {
     var prevMonth = prevData && showMonthYear ? new Date(prevData[prevData.length-1].created_time*1000).getMonth() : undefined;
     angular.forEach(data, function(item, index) {
@@ -146,7 +147,7 @@ var processData = function(showMonthYear, data, prevData) {
     });
 };
 
-// Media controller
+// Media controller (not used!)
 instaLurker.controller('MediaCtrl',['$scope','media', function($scope, media) {
     $scope.media = media;
 }]);
