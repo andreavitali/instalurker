@@ -10,16 +10,14 @@ var maxCacheSize = 300;
 exports.feed = function (req, res, next) {
     // Check if is a 'load more' request
     if(req.params.max_timestamp > 0) {
-        // get 20 more recent media from cached
+        // get [sliceSize] more recent media from cached
         db.User.findById(req.user.id, {cachedFeed: {$slice:sliceSize}}, function(err, data){
             if(err) return next(err);
             if(data.cachedFeed.length > 0) {
                 res.json(data.cachedFeed);
                 // remove them from cache
                 var lastTime = data.cachedFeed[data.cachedFeed.length - 1].created_time;
-                db.User.findByIdAndUpdate(req.user.id, {$pull: {cachedFeed: {created_time: {$gte: lastTime}}}}, function (err) {
-                    //if (!err) console.log("Removed %d items from cache", sliceSize);
-                });
+                db.User.findByIdAndUpdate(req.user.id, {$pull: {cachedFeed: {created_time: {$gte: lastTime}}}}).exec();
             }
             else {
                 getAllUsersRecent(req, res, next);
@@ -46,8 +44,12 @@ var getAllUsersRecent = function(req, res, next) {
                 callback();
             },
             error: function (errorMessage, errorObject, caller) {
-                if(errorMessage === 'APINotAllowedError')
+                if (errorMessage === 'APINotAllowedError')
                     callback();
+                else if (errorMessage === 'APINotFoundError') { // User does not exists anymore
+                    db.User.findOneAndUpdate({_id : req.user.id}, {$pull: { 'followed' : {'id':item.id}}}).exec();
+                    callback();
+                }
                 else
                     callback(new Error(errorMessage + ' from ' + caller));
             }
@@ -69,10 +71,7 @@ var getAllUsersRecent = function(req, res, next) {
                 // 3: return first 20
                 res.json(sortedAllUsersRecent.slice(0, sliceSize));
                 // 4: cache the others
-                db.User.findByIdAndUpdate(req.user.id, {$set: {cachedFeed:sortedAllUsersRecent.slice(sliceSize, maxCacheSize-sliceSize)}}, function (err) {
-                    if (err) return next(err);
-                    //console.log("Cached %d items", sortedAllUsersRecent.length - sliceSize);
-                });
+                db.User.findByIdAndUpdate(req.user.id, {$set: {cachedFeed:sortedAllUsersRecent.slice(sliceSize, maxCacheSize-sliceSize)}}, next);
             });
         })
     });

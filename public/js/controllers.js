@@ -105,6 +105,8 @@ instaLurker.controller('MyFeedCtrl',['InstagramAPI', function(InstagramAPI) {
             processData(false,myFeedCtrl.data);
             myFeedCtrl.next_max_timestamp = result.data[result.data.length - 1].created_time;
             myFeedCtrl.loading = false;
+        }, function() {
+            myFeedCtrl.loading = false;
         });
 
     // Load more...
